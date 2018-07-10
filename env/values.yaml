@@ -12,3 +12,22 @@ cleanup:
   Annotations:
     helm.sh/hook: pre-delete
     helm.sh/hook-delete-policy: hook-succeeded
+expose:
+  config:
+    domain: darwin.services
+    exposer: Ingress
+    http: "true"
+    tlsacme: "false"
+  Annotations:
+    helm.sh/hook: post-install,post-upgrade
+    helm.sh/hook-delete-policy: hook-succeeded
+jenkins:
+  Servers:
+    GHE:
+    - Name: GitHubSSH
+      Url: git@github.com:/api/v3/
+    - Name: GitHubSSH2
+      Url: git@github.com/api/v3/
+    Global:
+      EnvVars:
+        DOCKER_REGISTRY: 802738533039.dkr.ecr.us-east-1.amazonaws.com
